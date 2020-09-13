@@ -7,6 +7,7 @@ import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
 import IconCard from '../../../components/cards/IconCard';
 import Logs from '../../../containers/dashboards/Logs'
+import { main } from './sber/train'
 
 export default class Sber extends Component {    
     constructor(props) {
@@ -48,12 +49,26 @@ export default class Sber extends Component {
         };
     }
 
+    resetState() {
+        this.setState({
+            balance: 10000,
+            stocks: 0,
+            maxBuyStocks: 40,
+            lastStockPrice: 0,
+            commission: 0.05,
+            logs: [],
+        });
+    }
+
     // lastDate = 1538884800000
     // [Timestamp, O, H, L, C]
     // lastTick = [6604.98, 6606, 6604.07, 6606]
 
     componentDidMount() {
         this.getChartData();
+        this.resetState();
+
+        main();
     }
 
     componentDidUpdate() {
